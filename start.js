@@ -41,7 +41,7 @@ const trim = (value, charlist) => trimLeft(trimRight(value, charlist));
 
 const main = async () => {
     let branch = process.env.INPUT_BRANCH;
-    const repository = trim(process.env.INPUT_REPOSITORY || process.env.GITHUB_REPOSITORY);
+    const repository = getRepository()
     if (!branch) {
         const headers = {
             'User-Agent': 'github.com/ad-m/github-push-action'
@@ -58,6 +58,16 @@ const main = async () => {
         }
     });
 };
+
+const getRepository = () => {
+    const repository = trim(process.env.INPUT_REPOSITORY || process.env.GITHUB_REPOSITORY);
+
+    if(repository.endsWith("/")) {
+        return repository.slice(0, -1)
+    }
+
+    return repository
+}
 
 main().catch(err => {
     console.error(err);
