@@ -62,7 +62,7 @@ const main = async () => {
 const getRepository = () => {
     const repository = trim(process.env.INPUT_REPOSITORY || process.env.GITHUB_REPOSITORY);
 
-    if(repository.endsWith("/")) {
+    if(repository.endsWith('/')) {
         return repository.slice(0, -1)
     }
 
